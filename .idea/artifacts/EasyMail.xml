@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="EasyMail">
+    <output-path>$PROJECT_DIR$/out/artifacts/EasyMail</output-path>
+    <root id="archive" name="EasyMail.jar">
+      <element id="module-output" name="EasyMail" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/depend/MossLib.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

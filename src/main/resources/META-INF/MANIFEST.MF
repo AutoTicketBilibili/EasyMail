@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Title: EasyMail
+Implementation-Version: 1.0
+Implementation-Vendor: MossCG
+Main-Class: org.mossmc.mosscg.EasyMail.Main
