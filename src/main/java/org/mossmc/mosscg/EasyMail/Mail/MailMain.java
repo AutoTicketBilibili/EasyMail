@@ -20,6 +20,7 @@ public class MailMain {
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.smtp.host", mailSMTPHost);
         props.setProperty("mail.smtp.auth", "true");
+        props.put("mail.smtp.ssl.enable", true);
         mailSession = Session.getInstance(props);
         mailSession.setDebug(BasicInfo.debug);
     }
