@@ -8,11 +8,16 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
 public class MailSend {
-    public static void sendMail(String title, String content, String senderName) {
+    public static void asyncSendMail(String title, String content, String senderName, String receive) {
+        Thread thread = new Thread(() -> sendMail(title, content, senderName, receive));
+        thread.start();
+    }
+
+    public static void sendMail(String title, String content, String senderName, String receive) {
         try {
             MimeMessage message = new MimeMessage(MailMain.mailSession);
             message.setFrom(new InternetAddress(MailMain.mailAccount, senderName, "UTF-8"));
-            message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(MailMain.mailReceive, MailMain.mailReceive, "UTF-8"));
+            message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receive, receive, "UTF-8"));
             message.setSubject(title, "UTF-8");
             message.setContent(content, "text/html;charset=UTF-8");
             message.setSentDate(new Date());

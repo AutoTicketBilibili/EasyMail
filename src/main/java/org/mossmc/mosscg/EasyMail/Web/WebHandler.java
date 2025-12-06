@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.mossmc.mosscg.EasyMail.BasicInfo;
+import org.mossmc.mosscg.EasyMail.Mail.MailMain;
 import org.mossmc.mosscg.EasyMail.Mail.MailSend;
 
 public class WebHandler implements HttpHandler {
@@ -39,7 +40,14 @@ public class WebHandler implements HttpHandler {
                 WebBasic.completeResponse(exchange,failedData,data);
                 return;
             }
-            MailSend.sendMail(data.getString("mailTitle"),data.getString("mailContent"),data.getString("mailSenderName"));
+            String[] receives = MailMain.mailReceive.split(",");
+            if (data.getString("mailTitle").contains("抢票成功提醒")) {
+                for (String receive : receives) {
+                    MailSend.asyncSendMail(data.getString("mailTitle"), data.getString("mailContent"), data.getString("mailSenderName"), receive);
+                }
+            } else {
+                MailSend.asyncSendMail(data.getString("mailTitle"),data.getString("mailContent"),data.getString("mailSenderName"),receives[0]);
+            }
 
             WebBasic.completeResponse(exchange,successData,data);
         } catch (Exception e) {
