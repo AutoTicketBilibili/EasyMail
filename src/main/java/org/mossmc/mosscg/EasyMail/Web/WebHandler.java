@@ -12,6 +12,7 @@ public class WebHandler implements HttpHandler {
      * 基础请求格式（POST）：
      * {
      *     token: "xxx",
+     *     receive: "xxx",
      *     mailTitle: "xxx",
      *     mailSenderName: "xxx",
      *     mailContent: "xxx"
@@ -41,13 +42,9 @@ public class WebHandler implements HttpHandler {
                 return;
             }
             String[] receives = MailMain.mailReceive.split(",");
-            if (data.getString("mailTitle").contains("抢票成功提醒")) {
-                for (String receive : receives) {
-                    MailSend.asyncSendMail(data.getString("mailTitle"), data.getString("mailContent"), data.getString("mailSenderName"), receive);
-                }
-            } else {
-                MailSend.asyncSendMail(data.getString("mailTitle"),data.getString("mailContent"),data.getString("mailSenderName"),receives[0]);
-            }
+            if (data.containsKey("receive")) receives = data.getString("receive").split(",");
+
+            MailSend.asyncSendMail(data.getString("mailTitle"),data.getString("mailContent"),data.getString("mailSenderName"),receives[0]);
 
             WebBasic.completeResponse(exchange,successData,data);
         } catch (Exception e) {
