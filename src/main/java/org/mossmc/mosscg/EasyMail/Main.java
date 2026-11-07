@@ -2,6 +2,7 @@ package org.mossmc.mosscg.EasyMail;
 
 import org.mossmc.mosscg.EasyMail.Command.CommandExit;
 import org.mossmc.mosscg.EasyMail.Command.CommandReload;
+import org.mossmc.mosscg.EasyMail.Command.CommandTest;
 import org.mossmc.mosscg.EasyMail.Mail.MailMain;
 import org.mossmc.mosscg.EasyMail.Web.WebMain;
 import org.mossmc.mosscg.MossLib.Command.CommandManager;
@@ -42,6 +43,7 @@ public class Main {
 
         //命令行初始化
         CommandManager.initCommand(BasicInfo.logger,true);
+        CommandManager.registerCommand(new CommandTest());
         CommandManager.registerCommand(new CommandExit());
         CommandManager.registerCommand(new CommandReload());
 
